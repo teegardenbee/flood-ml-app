@@ -8,7 +8,7 @@ st.title("🌊 Flood Prediction Using Elevation + Slope")
 option = st.radio("Choose a map to view:", ["Flood Prediction", "Elevation", "Slope"])
 
 if option == "Flood Prediction":
-    st.image("content/flood-ml-app/flood_prediction.png", caption="Predicted Flood Risk", use_container_width=True)
+    st.image("content/flood-ml-app/flood_prediction.png", caption="Predicted Flood Risk", use_container_width=False)
 elif option == "Elevation":
     st.image("content/flood-ml-app/elevation_map.png", caption="Elevation Map", use_container_width=True)
 elif option == "Slope":
