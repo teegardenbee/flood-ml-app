@@ -3,8 +3,7 @@
 This project demonstrates a simple, beginner-friendly geospatial machine learning pipeline for predicting flood-prone areas using elevation data and terrain slope. 
 It uses PyTorch for modeling and Streamlit for interactive visualization.
 
-🔗 **Live App**: [https://teegardenbee-flood-ml-app.streamlit.app](https://teegardenbee-flood-ml-app.streamlit.app)
-
+🔗 **Live App**: [https://flood-app.streamlit.app/](https://flood-app.streamlit.app/)
 
 ## 📌 Project Summary
 
