@@ -64,7 +64,23 @@ with col2:
     gt_map = create_map_with_png_overlay(GROUND_TRUTH_PATH, "Ground Truth", BOUNDS)
     st_folium(gt_map, width=500, height=400)
 
+# ---- Custom Styling to Reduce Space Below ----
+st.markdown("""
+    <style>
+        .block-container {
+            padding-bottom: 1rem !important;
+        }
+        .element-container {
+            margin-bottom: 0rem !important;
+        }
+        footer {
+            margin-top: 0rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # ---- Footer ----
-st.markdown("---")
+st.markdown("<hr style='margin-top: 10px; margin-bottom: 5px;'>", unsafe_allow_html=True)
 st.caption("Developed by - Atharva Dandagawhal | [@teegardenbee](https://github.com/teegardenbee)")
+
 
