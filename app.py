@@ -64,23 +64,30 @@ with col2:
     gt_map = create_map_with_png_overlay(GROUND_TRUTH_PATH, "Ground Truth", BOUNDS)
     st_folium(gt_map, width=500, height=400)
 
-# ---- Custom Styling to Reduce Space Below ----
+# ---- Remove Vertical Gaps Using CSS ----
 st.markdown("""
     <style>
+        /* Remove extra space at bottom */
         .block-container {
-            padding-bottom: 1rem !important;
+            padding-bottom: 0rem !important;
+            margin-bottom: 0rem !important;
         }
+
+        /* Reduce space between widgets */
         .element-container {
             margin-bottom: 0rem !important;
         }
-        footer {
-            margin-top: 0rem;
+
+        /* Optional: remove white gap in dark mode */
+        .main > div {
+            padding-bottom: 0rem !important;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# ---- Footer ----
-st.markdown("<hr style='margin-top: 10px; margin-bottom: 5px;'>", unsafe_allow_html=True)
+# ---- Custom Thin Line Footer ----
+st.markdown("<hr style='margin-top: 5px; margin-bottom: 5px;'>", unsafe_allow_html=True)
 st.caption("Developed by - Atharva Dandagawhal | [@teegardenbee](https://github.com/teegardenbee)")
+
 
 
