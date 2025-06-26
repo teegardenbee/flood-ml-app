@@ -56,8 +56,8 @@ def create_map_with_raster(raster_path, label):
     return fmap
 
 # ---- Paths to Rasters ----
-PREDICTED_PATH = "flood_prediction.tif"
-GROUND_TRUTH_PATH = "ground_truth.tif"  # make sure this exists
+PREDICTED_PATH = "flood_prediction.png"
+GROUND_TRUTH_PATH = "ground_truth.png"  # make sure this exists
 
 # ---- Layout: Two Maps Side by Side ----
 col1, col2 = st.columns(2)
