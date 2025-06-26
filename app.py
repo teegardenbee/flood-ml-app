@@ -26,7 +26,7 @@ def create_map_with_png_overlay(image_path, label, bounds):
     center_lat = (bounds[0][0] + bounds[1][0]) / 2
     center_lon = (bounds[0][1] + bounds[1][1]) / 2
 
-    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=10, tiles='cartodbpositron')
+    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=12, tiles='cartodbpositron')
 
     if os.path.exists(image_path):
         folium.raster_layers.ImageOverlay(
