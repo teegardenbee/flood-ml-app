@@ -66,5 +66,5 @@ with col2:
 
 # ---- Footer ----
 st.markdown("---")
-st.caption("Developed by - Atharva Dandagawhal /n [@teegardenbee](https://github.com/teegardenbee)")
+st.caption("Developed by - Atharva Dandagawhal | [@teegardenbee](https://github.com/teegardenbee)")
 
