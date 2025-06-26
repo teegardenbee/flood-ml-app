@@ -1,10 +1,6 @@
 import streamlit as st
 import folium
-import rasterio
-from rasterio.plot import reshape_as_image
 from streamlit_folium import st_folium
-import numpy as np
-import branca.colormap as cm
 import os
 
 # ---- Page config ----
@@ -19,59 +15,56 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---- Utility to Create Folium Map with Raster Overlay ----
-def create_map_with_raster(raster_path, label):
-    with rasterio.open(raster_path) as src:
-        bounds = src.bounds
-        array = src.read(1)
-        transform = src.transform
+# ---- Define bounds manually (same as raster bounds) ----
+# Example: [[south, west], [north, east]]
+# These should match the geospatial extent of your rasters
+BOUNDS = [[19.995, 73.70], [20.105, 73.80]]  # Modify if your AOI changes
 
-    # Normalize to 0–1
-    array = np.nan_to_num(array)
-    min_val, max_val = array.min(), array.max()
-    norm = (array - min_val) / (max_val - min_val + 1e-6)
+# ---- Utility to Create Folium Map with PNG Overlay ----
+def create_map_with_png_overlay(image_path, label, bounds):
+    # Center map on midpoint of bounds
+    center_lat = (bounds[0][0] + bounds[1][0]) / 2
+    center_lon = (bounds[0][1] + bounds[1][1]) / 2
 
-    # Create colormap
-    colormap = cm.linear.Blues_09.scale(0, 1) if "predicted" in raster_path.lower() else cm.linear.Greens_09.scale(0, 1)
-    colormap.caption = label
-
-    # Create folium map centered on raster
-    center_lat = (bounds.top + bounds.bottom) / 2
-    center_lon = (bounds.left + bounds.right) / 2
     fmap = folium.Map(location=[center_lat, center_lon], zoom_start=13, tiles='cartodbpositron')
 
-    # Add raster layer
-    folium.raster_layers.ImageOverlay(
-        image=norm,
-        bounds=[[bounds.bottom, bounds.left], [bounds.top, bounds.right]],
-        colormap=lambda x: colormap(x),
-        opacity=0.8,
-        name=label,
-    ).add_to(fmap)
+    if os.path.exists(image_path):
+        folium.raster_layers.ImageOverlay(
+            image=image_path,
+            bounds=bounds,
+            opacity=0.7,
+            name=label,
+            interactive=True,
+            cross_origin=False,
+        ).add_to(fmap)
 
-    # Add layer control and colormap
-    colormap.add_to(fmap)
-    folium.LayerControl().add_to(fmap)
+        folium.LayerControl().add_to(fmap)
+    else:
+        folium.Marker(
+            location=[center_lat, center_lon],
+            popup=f"{label} image not found."
+        ).add_to(fmap)
 
     return fmap
 
-# ---- Paths to Rasters ----
+# ---- Paths to PNG Images ----
 PREDICTED_PATH = "flood_prediction.png"
-GROUND_TRUTH_PATH = "ground_truth.png"  # make sure this exists
+GROUND_TRUTH_PATH = "ground_truth.png"
 
 # ---- Layout: Two Maps Side by Side ----
 col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("🔵 Predicted Flood Susceptibility")
-    pred_map = create_map_with_raster(PREDICTED_PATH, "Predicted")
+    pred_map = create_map_with_png_overlay(PREDICTED_PATH, "Predicted", BOUNDS)
     st_folium(pred_map, width=500, height=400)
 
 with col2:
     st.subheader("🟢 Ground Truth Labels")
-    gt_map = create_map_with_raster(GROUND_TRUTH_PATH, "Ground Truth")
+    gt_map = create_map_with_png_overlay(GROUND_TRUTH_PATH, "Ground Truth", BOUNDS)
     st_folium(gt_map, width=500, height=400)
 
 # ---- Footer ----
 st.markdown("---")
 st.caption("Developed by [@teegardenbee](https://github.com/teegardenbee)")
+
