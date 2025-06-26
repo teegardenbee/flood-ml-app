@@ -48,7 +48,7 @@ def create_map_with_png_overlay(image_path, label, bounds):
     return fmap
 
 # ---- Paths to PNG Images ----
-PREDICTED_PATH = "flood_prediction.png"
+PREDICTED_PATH = "flood_prediction_cleaned.png"
 GROUND_TRUTH_PATH = "ground_truth.png"
 
 # ---- Layout: Two Maps Side by Side ----
