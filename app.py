@@ -87,7 +87,7 @@ st.markdown("""
 
 # ---- Custom Thin Line Footer ----
 st.markdown("<hr style='margin-top: 5px; margin-bottom: 5px;'>", unsafe_allow_html=True)
-st.caption("Developed by - Atharva Dandagawhal | [@teegardenbee](https://github.com/teegardenbee)")
+st.caption("<h2 style='text-align: center;'>Developed by - Atharva Dandagawhal | [@teegardenbee](https://github.com/teegardenbee)</h2>")
 
 
 
